@@ -1,0 +1,22 @@
+<resources>
+    <!-- Primary Gym Color (e.g., Dark Blue) -->
+    <color name="primaryColor">#1E3A8A</color>
+
+    <!-- Secondary Gym Color (e.g., Vibrant Green) -->
+    <color name="secondaryColor">#10B981</color>
+
+    <!-- Background Color (Light Grey) -->
+    <color name="backgroundColor">#F3F4F6</color>
+
+    <!-- Text Color (Dark Grey) -->
+    <color name="textColorPrimary">#111827</color>
+
+    <!-- White -->
+    <color name="white">#FFFFFF</color>
+
+    <!-- Error Color (Red) -->
+    <color name="errorColor">#EF4444</color>
+
+    <!-- Hint Text Color (Light Grey) -->
+    <color name="hintTextColor">#6B7280</color>
+</resources>
