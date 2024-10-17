@@ -17,7 +17,6 @@ import com.example.gym.Adapters.EventsAdapter;
 import com.example.gym.Data.Event;
 import com.example.gym.HelperDB;
 import com.example.gym.R;
-import com.example.gym.databinding.FragmentHomeBinding;
 
 import java.util.List;
 

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Coach Image -->
+        <ImageView
+            android:id="@+id/coach_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/coach_placeholder" />
+
+        <!-- Coach Name -->
+        <TextView
+            android:id="@+id/coach_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Coach Name"
+            android:textAppearance="?attr/textAppearanceHeadline6" />
+
+        <!-- Coach Phone Number -->
+        <TextView
+            android:id="@+id/coach_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Phone Number"
+            android:textAppearance="?attr/textAppearanceBody2" />
+
+        <!-- Coach Years of Experience -->
+        <TextView
+            android:id="@+id/coach_experience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Years of Experience"
+            android:textAppearance="?attr/textAppearanceBody2" />
+
+        <!-- Button Layout for Call and Message -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <!-- Call Button -->
+            <Button
+                android:id="@+id/button_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Call"
+                android:drawableLeft="@android:drawable/ic_menu_call" />
+
+            <!-- Message Button -->
+            <Button
+                android:id="@+id/button_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Message"
+                android:drawableLeft="@android:drawable/ic_menu_send"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

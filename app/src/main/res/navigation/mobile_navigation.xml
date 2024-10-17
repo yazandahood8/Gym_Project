@@ -5,21 +5,39 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
+    <!-- Home Fragment -->
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.gym.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
+    <!-- Profile Fragment -->
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.gym.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_profile"
+        android:name="com.example.gym.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
 
+    <!-- Coaches Fragment -->
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.gym.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_coaches"
+        android:name="com.example.gym.ui.coaches.CoachesFragment"
+        android:label="@string/menu_coaches"
+        tools:layout="@layout/fragment_coaches" />
+
+    <!-- Events Fragment -->
+    <fragment
+        android:id="@+id/nav_events"
+        android:name="com.example.gym.ui.events.EventsFragment"
+        android:label="@string/menu_events"
+        tools:layout="@layout/fragment_events" />
+
+    <!-- Logout Fragment -->
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.gym.ui.logout.LogoutFragment"
+        android:label="@string/menu_logout"
+        tools:layout="@layout/fragment_logout" />
+
 </navigation>

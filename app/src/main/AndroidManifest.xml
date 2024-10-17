@@ -5,6 +5,8 @@
     <!-- Storage permissions (consider using scoped storage for API 29+) -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
     <!-- Backup settings (optional) -->
     <application
@@ -28,23 +30,23 @@
             </intent-filter>
         </activity>
 
-        <!-- Main activity -->
+        <!-- Main activity (should be accessible if needed) -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
 
-        <!-- Secondary main activity (if needed) -->
+        <!-- Secondary activity -->
         <activity
             android:name=".MainActivity2"
             android:exported="false"
             android:label="@string/title_activity_main2" />
 
-        <!-- Sign Up activity -->
+        <!-- Sign Up activity (shouldn't be exported if it's internal) -->
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
 
-        <!-- Login activity -->
+        <!-- Login activity (not exported for security reasons) -->
         <activity
             android:name=".LoginActivity"
             android:exported="false" />

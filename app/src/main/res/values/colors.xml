@@ -19,4 +19,9 @@
 
     <!-- Hint Text Color (Light Grey) -->
     <color name="hintTextColor">#6B7280</color>
+
+        <color name="bootstrapBackground">#f8f9fa</color> <!-- Light gray background -->
+        <color name="bootstrapTextColor">#343a40</color> <!-- Dark gray text -->
+        <color name="bootstrapAccentColor">#007bff</color> <!-- Bootstrap blue for accents -->
+
 </resources>
