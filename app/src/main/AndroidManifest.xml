@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Storage permissions (consider using scoped storage for API 29+) -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
-    <!-- Backup settings (optional) -->
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -19,38 +20,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gym"
         tools:targetApi="31">
-
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
         <!-- Splash screen activity (exported=true for the launcher) -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Main activity (should be accessible if needed) -->
+        </activity> <!-- Main activity (should be accessible if needed) -->
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-
-        <!-- Secondary activity -->
+            android:exported="false" /> <!-- Secondary activity -->
         <activity
             android:name=".MainActivity2"
             android:exported="false"
-            android:label="@string/title_activity_main2" />
-
-        <!-- Sign Up activity (shouldn't be exported if it's internal) -->
+            android:label="@string/title_activity_main2" /> <!-- Sign Up activity (shouldn't be exported if it's internal) -->
         <activity
             android:name=".SignUpActivity"
-            android:exported="false" />
-
-        <!-- Login activity (not exported for security reasons) -->
+            android:exported="false" /> <!-- Login activity (not exported for security reasons) -->
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>

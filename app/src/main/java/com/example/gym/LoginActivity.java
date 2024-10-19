@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
         signUpButton = findViewById(R.id.signUpButton);
-
+        addAdmin();
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,9 +90,9 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (user.isAdmin()) {
                             Toast.makeText(LoginActivity.this, "Admin login successful", Toast.LENGTH_SHORT).show();
-                            // Redirect to AdminActivity (if you have one)
-                            // Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
-                            // startActivity(intent);
+                           //  Redirect to AdminActivity (if you have one)
+                             Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                             startActivity(intent);
                         } else {
                             Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, MainActivity2.class);
@@ -164,6 +164,30 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
                 Toast.makeText(context, "Error parsing date and time for " + eventTitles[i], Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    private void addAdmin() {
+        String name = "Tala";
+        String email = "tala@gmail.com";
+        String password = "123456789";
+        int age=18;
+        String phone = "0599999999";
+        boolean isAdmin = true;
+
+        // Validate age input
+
+
+        // Create a new user
+        User user = new User(1,name, email, password, age, phone, isAdmin);
+
+        // Add the user to the database
+        long result = databaseHelper.addUser(user);
+
+        if (result != -1) {
+            Toast.makeText(this, "User added successfully!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Error adding user.", Toast.LENGTH_SHORT).show();
         }
     }
 

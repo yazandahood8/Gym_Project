@@ -46,6 +46,8 @@ dependencies {
 
     // Material Calendar View
     implementation("com.github.prolificinteractive:material-calendarview:2.0.1")
+    implementation(libs.activity)
+    implementation(libs.constraintlayout)
 
     // Unit Testing dependencies
     testImplementation("junit:junit:4.13.2")

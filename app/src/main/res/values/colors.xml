@@ -10,6 +10,8 @@
 
     <!-- Text Color (Dark Grey) -->
     <color name="textColorPrimary">#111827</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimaryDark">#3700B3</color> <!-- Add this line for colorPrimaryDark -->
 
     <!-- White -->
     <color name="white">#FFFFFF</color>

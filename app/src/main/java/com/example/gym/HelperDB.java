@@ -140,6 +140,24 @@ public class HelperDB extends SQLiteOpenHelper {
         // Update the user's information where the email matches
         return db.update(TABLE_USER, values, COLUMN_USER_EMAIL + "=?", new String[]{user.getEmail()});
     }
+    // Method to update an event based on its title
+    public int updateEvent(Event event) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_EVENT_DATE, event.getDate());
+        values.put(COLUMN_EVENT_DESCRIPTION, event.getDescription());
+        values.put(COLUMN_EVENT_BEGIN_TIME, event.getBeginTime());
+        values.put(COLUMN_EVENT_DURATION, event.getDurationMinutes());
+
+        // Update the event where the title matches
+        return db.update(TABLE_EVENT, values, COLUMN_EVENT_TITLE + "=?", new String[]{event.getTitle()});
+    }
+
+    // Method to delete an event based on its title
+    public int deleteEvent(String title) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_EVENT, COLUMN_EVENT_TITLE + "=?", new String[]{title});
+    }
 
     // Method to fetch user by email and password
     public User getUser(String email, String password) {
