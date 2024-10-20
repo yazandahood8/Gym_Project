@@ -27,6 +27,7 @@ public class HelperDB extends SQLiteOpenHelper {
     public static final String COLUMN_USER_AGE = "age";
     public static final String COLUMN_USER_PHONE = "phone_number";
     public static final String COLUMN_IS_ADMIN = "is_admin"; // New column for admin flag
+    public static final String COLUMN_USER_GENDER = "gender";
 
     // Event table info
     public static final String TABLE_EVENT = "events";
@@ -46,6 +47,8 @@ public class HelperDB extends SQLiteOpenHelper {
                     COLUMN_USER_PASSWORD + " TEXT, " +
                     COLUMN_USER_AGE + " INTEGER, " +
                     COLUMN_USER_PHONE + " TEXT, " +
+                    COLUMN_USER_GENDER + " TEXT, " +
+
                     COLUMN_IS_ADMIN + " INTEGER DEFAULT 0);";  // Default 0 for non-admin
 
     // SQL query to create the Event table
@@ -93,16 +96,17 @@ public class HelperDB extends SQLiteOpenHelper {
     // Method to fetch user by email
     public User getUserByEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
-
-        String[] columns = {COLUMN_USER_ID, COLUMN_USER_NAME, COLUMN_USER_EMAIL, COLUMN_USER_PASSWORD, COLUMN_USER_AGE, COLUMN_USER_PHONE, COLUMN_IS_ADMIN};
+        String[] columns = {
+                COLUMN_USER_ID, COLUMN_USER_NAME, COLUMN_USER_EMAIL, COLUMN_USER_PASSWORD,
+                COLUMN_USER_AGE, COLUMN_USER_PHONE, COLUMN_USER_GENDER, COLUMN_IS_ADMIN
+        };
         String selection = COLUMN_USER_EMAIL + "=?";
         String[] selectionArgs = {email};
 
         Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
-            boolean isAdmin = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_ADMIN)) == 1; // Check admin status
-
+            boolean isAdmin = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_ADMIN)) == 1;
             User user = new User(
                     cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_NAME)),
@@ -110,14 +114,16 @@ public class HelperDB extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_PASSWORD)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_AGE)),
                     cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_PHONE)),
-                    isAdmin // Initialize isAdmin field
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_GENDER)),
+                    isAdmin
             );
             cursor.close();
             return user;
         }
 
-        return null; // Return null if user is not found
+        return null;
     }
+
     // Method to delete all events from the database
     public void deleteAllEvents() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -160,11 +166,16 @@ public class HelperDB extends SQLiteOpenHelper {
     }
 
     // Method to fetch user by email and password
+    // Method to fetch user by email and password
     public User getUser(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_USER_ID, COLUMN_USER_NAME, COLUMN_USER_EMAIL, COLUMN_USER_PASSWORD, COLUMN_USER_AGE, COLUMN_USER_PHONE, COLUMN_IS_ADMIN};
+        String[] columns = {
+                COLUMN_USER_ID, COLUMN_USER_NAME, COLUMN_USER_EMAIL, COLUMN_USER_PASSWORD,
+                COLUMN_USER_AGE, COLUMN_USER_PHONE, COLUMN_USER_GENDER, COLUMN_IS_ADMIN
+        };
         String selection = COLUMN_USER_EMAIL + "=? AND " + COLUMN_USER_PASSWORD + "=?";
         String[] selectionArgs = {email, password};
+
         Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
@@ -176,14 +187,19 @@ public class HelperDB extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_PASSWORD)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_AGE)),
                     cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_PHONE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_GENDER)),
                     isAdmin
             );
             cursor.close();
             return user;
         }
 
-        return null;
+        if (cursor != null) {
+            cursor.close();
+        }
+        return null; // Return null if no matching user is found
     }
+
 
     // Method to add a new event to the database
     public long addEvent(Event event) {

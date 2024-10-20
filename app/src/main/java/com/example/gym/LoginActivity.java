@@ -179,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // Create a new user
-        User user = new User(1,name, email, password, age, phone, isAdmin);
+        User user = new User(1,name, email, password, age, phone,"Female", isAdmin);
 
         // Add the user to the database
         long result = databaseHelper.addUser(user);

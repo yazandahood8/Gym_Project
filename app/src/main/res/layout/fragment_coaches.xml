@@ -7,8 +7,8 @@
     tools:context=".ui.coaches.CoachesFragment">
 
     <!-- RecyclerView for displaying list of coaches -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_coaches"
+    <ListView
+        android:id="@+id/list_view_coaches"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"

@@ -2,25 +2,27 @@ package com.example.gym.Data;
 
 public class User {
     private int id;
-
     private String name;
     private String email;
     private String password;
     private int age;
     private String phoneNumber;
-
+    private String gender; // Changed from 'Gender' to 'gender' for consistency
     private boolean isAdmin;
 
-    public User(int id,String name, String email, String password, int age, String phoneNumber,boolean isAdmin) {
-        this.id=id;
+    // Constructor
+    public User(int id, String name, String email, String password, int age, String phoneNumber, String gender, boolean isAdmin) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.age = age;
         this.phoneNumber = phoneNumber;
-        this.isAdmin=isAdmin;
+        this.gender = gender; // Initialize gender
+        this.isAdmin = isAdmin;
     }
 
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -69,8 +71,19 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public boolean isAdmin() {
         return isAdmin;
     }
 
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 }

@@ -85,6 +85,27 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Spacing -->
+    <RadioGroup
+        android:id="@+id/genderRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
+        <RadioButton
+            android:id="@+id/radioMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:padding="8dp"/>
+
+        <RadioButton
+            android:id="@+id/radioFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:padding="8dp"/>
+    </RadioGroup>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="16dp" />

@@ -14,6 +14,8 @@ public class AdminActivity extends AppCompatActivity {
 
     private EditText etEventTitle, etEventDate, etBeginTime, etDuration, etEventDescription;
     private Button btnAddEvent, btnEditEvent, btnDeleteEvent;
+
+    //database 
     private HelperDB db;
 
     @Override

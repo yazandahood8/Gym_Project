@@ -19,34 +19,30 @@ import com.example.gym.R;
 public class LogoutFragment extends Fragment {
 
     private static final String PREFS_NAME = "LoginPrefs";
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_logout, container, false);
+
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Initialize SharedPreferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-
-        // Clear all stored data
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear(); // Clear all saved data
         editor.apply();
-
-        // Show the Toast message
         Toast.makeText(getActivity(), "You have successfully logged out.", Toast.LENGTH_SHORT).show();
-
-        // Redirect to LoginActivity
         Intent intent = new Intent(getActivity(), LoginActivity.class);
-        startActivity(intent);
 
-        // Close the current activity
+        startActivity(intent);
         getActivity().finish();
+
+
+
+
     }
 }

@@ -3,23 +3,19 @@ package com.example.gym.ui.events;
 import android.database.Cursor;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
-import java.time.format.DateTimeFormatter;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
+
+import com.example.gym.Adapters.EventsAdapter;
 import com.example.gym.Adapters.EventsAdapter;
 import com.example.gym.Data.Event;
 import com.example.gym.HelperDB;
 import com.example.gym.R;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,7 +25,7 @@ import java.util.Locale;
 public class EventsFragment extends Fragment {
 
     private MaterialCalendarView calendarView;
-    private RecyclerView recyclerView;
+    private ListView listView;
     private EventsAdapter eventsAdapter;
     private List<Event> eventList;
     private HelperDB helperDB;
@@ -42,7 +38,6 @@ public class EventsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_events, container, false);
 
         // Initialize the DB Helper
@@ -50,11 +45,8 @@ public class EventsFragment extends Fragment {
 
         // Initialize UI components
         calendarView = view.findViewById(R.id.calendarView);
-        recyclerView = view.findViewById(R.id.recycler_view_events);
+        listView = view.findViewById(R.id.eventsListView);
         noEventsTextView = view.findViewById(R.id.no_events_text);
-
-        // Setup RecyclerView
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Handle date selection
         calendarView.setOnDateChangedListener((widget, date, selected) -> {
@@ -63,14 +55,14 @@ public class EventsFragment extends Fragment {
 
             if (eventList.isEmpty()) {
                 noEventsTextView.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.GONE);
+                listView.setVisibility(View.GONE);
             } else {
                 noEventsTextView.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.VISIBLE);
 
                 // Set adapter to display events
-                eventsAdapter = new EventsAdapter(eventList);
-                recyclerView.setAdapter(eventsAdapter);
+                eventsAdapter = new EventsAdapter(getContext(), eventList);
+                listView.setAdapter(eventsAdapter);
             }
         });
 
@@ -78,12 +70,10 @@ public class EventsFragment extends Fragment {
     }
 
     // Method to format CalendarDay to String (yyyy-MM-dd)
-
-
     private String formatDate(CalendarDay date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
-        calendar.set(date.getYear(), date.getMonth() - 1, date.getDay()); // Calendar months are 0-based
+        calendar.set(date.getYear(), date.getMonth() - 1, date.getDay());
         return sdf.format(calendar.getTime());
     }
 
@@ -96,10 +86,9 @@ public class EventsFragment extends Fragment {
             do {
                 String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
-                String beginTime = cursor.getString(cursor.getColumnIndexOrThrow("begin_time")); // Fetch begin time
-                int durationMinutes = cursor.getInt(cursor.getColumnIndexOrThrow("duration")); // Fetch duration
+                String beginTime = cursor.getString(cursor.getColumnIndexOrThrow("begin_time"));
+                int durationMinutes = cursor.getInt(cursor.getColumnIndexOrThrow("duration"));
 
-                // Add event to the list
                 events.add(new Event(title, date, description, beginTime, durationMinutes));
             } while (cursor.moveToNext());
 

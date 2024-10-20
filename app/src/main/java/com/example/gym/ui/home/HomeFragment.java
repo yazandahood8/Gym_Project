@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,25 +22,25 @@ import com.example.gym.R;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-
-    private RecyclerView eventsRecyclerView;
+    private ListView eventsRecyclerView;
     private EventsAdapter eventsAdapter;
-    private HelperDB databaseHelper;
 
+    private HelperDB dataHelperDB;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        eventsRecyclerView = view.findViewById(R.id.eventsRecyclerView);
-        databaseHelper = new HelperDB(getContext());
+        eventsRecyclerView=view.findViewById(R.id.eventsListView);
+        dataHelperDB=new HelperDB(getContext());
 
-        // Fetch events from the database
-        List<Event> eventList = databaseHelper.getAllEvents();
+        List<Event> eventList = dataHelperDB.getAllEvents();
 
-        // Set up RecyclerView
-        eventsAdapter = new EventsAdapter(eventList);
+        // Initialize the adapter and set it to the ListView
+        eventsAdapter = new EventsAdapter(getContext(), eventList);
         eventsRecyclerView.setAdapter(eventsAdapter);
-        eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return view;
+
     }
+
+
 }

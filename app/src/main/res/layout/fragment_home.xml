@@ -8,54 +8,56 @@
     tools:context=".ui.home.HomeFragment">
 
     <!-- Hero Image (Gym Image) -->
-<ImageView
-android:id="@+id/heroImage"
-android:layout_width="match_parent"
-android:layout_height="200dp"
-android:scaleType="centerCrop"
-android:src="@drawable/ic_gym_logo"
-android:contentDescription="Gym Image"
-app:layout_constraintTop_toTopOf="parent"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintBottom_toTopOf="@+id/gymInfoText" />
+    <ImageView
+        android:id="@+id/heroImage"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_gym_logo"
+        android:contentDescription="Gym Image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Gym Information (Text) -->
-<TextView
-android:id="@+id/gymInfoText"
-android:layout_width="0dp"
-android:layout_height="wrap_content"
-android:text="Welcome to Fitness Pro Gym! Open: 6 AM - 11 PM, Contact: +123456789"
-android:textSize="16sp"
-android:padding="16dp"
-android:textColor="@color/bootstrapTextColor"
-    android:gravity="center"
+    <TextView
+        android:id="@+id/gymInfoText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Fitness Pro Gym! Open: 6 AM - 11 PM, Contact: +123456789"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:textColor="@color/bootstrapTextColor"
+        android:gravity="center"
     app:layout_constraintTop_toBottomOf="@id/heroImage"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" />
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/upcomingEventsLabel" />
 
-    <!-- Upcoming Events (Dynamically populated from SQLite) -->
-<TextView
-android:id="@+id/upcomingEventsLabel"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="Upcoming Events"
-android:textSize="18sp"
-android:textStyle="bold"
-android:layout_marginTop="16dp"
-android:textColor="@color/bootstrapAccentColor"
-    app:layout_constraintTop_toBottomOf="@id/gymInfoText"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" />
+    <!-- Upcoming Events Label -->
+    <TextView
+        android:id="@+id/upcomingEventsLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Upcoming Events"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/bootstrapAccentColor"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/gymInfoText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-<androidx.recyclerview.widget.RecyclerView
-android:id="@+id/eventsRecyclerView"
-android:layout_width="0dp"
-android:layout_height="0dp"
-android:layout_marginTop="8dp"
-app:layout_constraintTop_toBottomOf="@id/upcomingEventsLabel"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintBottom_toBottomOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- ListView for Upcoming Events -->
+    <ListView
+        android:id="@+id/eventsListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        app:layout_constraintTop_toBottomOf="@id/upcomingEventsLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,12 @@
 package com.example.gym.Adapters;
 
+import android.content.Context;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gym.Data.Event;
 import com.example.gym.R;
@@ -18,23 +16,46 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewHolder> {
+public class EventsAdapter extends BaseAdapter {
 
     private List<Event> eventList;
+    private LayoutInflater inflater;
 
-    public EventsAdapter(List<Event> eventList) {
+    public EventsAdapter(Context context, List<Event> eventList) {
         this.eventList = eventList;
-    }
-
-    @NonNull
-    @Override
-    public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_card_item, parent, false);
-        return new EventViewHolder(view);
+        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
+    public int getCount() {
+        return eventList.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return eventList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.event_card_item, parent, false);
+            holder = new ViewHolder();
+            holder.eventTitle = convertView.findViewById(R.id.eventTitle);
+            holder.eventDate = convertView.findViewById(R.id.eventDate);
+            holder.eventDescription = convertView.findViewById(R.id.eventDescription);
+            holder.eventTimer = convertView.findViewById(R.id.eventTimer);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
         Event event = eventList.get(position);
         holder.eventTitle.setText(event.getTitle());
         holder.eventDate.setText(event.getDate());
@@ -52,59 +73,23 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
         try {
             Date beginTime = dateTimeFormat.parse(eventDateTime);
-            Date currentTime = new Date(); // Current date and time
-
-            // Calculate the time difference between the current time and the event's start time
-            long timeUntilStart = beginTime.getTime() - currentTime.getTime();
-
-            if (timeUntilStart > 0) {
-                // Start countdown
-                new CountDownTimer(timeUntilStart, 1000) { // Count down in milliseconds
-                    public void onTick(long millisUntilFinished) {
-                        // Convert milliseconds into hours, minutes, and seconds
-                        long hours = millisUntilFinished / (1000 * 60 * 60);
-                        long minutes = (millisUntilFinished % (1000 * 60 * 60)) / (1000 * 60);
-                        long seconds = (millisUntilFinished % (1000 * 60)) / 1000;
-
-                        // Update the timer TextView with the remaining time
-                        holder.eventTimer.setText(String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds));
-                    }
-
-                    public void onFinish() {
-                        // Event has started, update UI to indicate the event is live
-                        holder.eventTimer.setText("Event has started!");
-                    }
-                }.start();
+            if (beginTime != null) {
+                // Start countdown for the event
+                startCountdown(beginTime, holder.eventTimer);
             } else {
-                // If the event has already started, show the event is live
-                holder.eventTimer.setText("Event has started!");
+                holder.eventTimer.setText("Invalid date/time");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             holder.eventTimer.setText("Error parsing time");
         }
+
+        return convertView;
     }
 
-
-
-    @Override
-    public int getItemCount() {
-        return eventList.size();
-    }
-
-    // ViewHolder class for the event card
-    public static class EventViewHolder extends RecyclerView.ViewHolder {
-
+    // ViewHolder class for the event list item
+    private static class ViewHolder {
         TextView eventTitle, eventDate, eventDescription, eventTimer;
-
-        public EventViewHolder(@NonNull View itemView) {
-            super(itemView);
-            eventTitle = itemView.findViewById(R.id.eventTitle);
-            eventDate = itemView.findViewById(R.id.eventDate);
-            eventDescription = itemView.findViewById(R.id.eventDescription);
-            eventTimer = itemView.findViewById(R.id.eventTimer); // TextView for the countdown timer
-        }
     }
 
     // Method to start the countdown
@@ -131,12 +116,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
 
                 @Override
                 public void onFinish() {
-                    // Once the countdown is finished, you can display a message or change the text
                     timerTextView.setText("Event started!");
                 }
             }.start();
         } else {
-            // If the event has already started, display the appropriate message
             timerTextView.setText("Event started!");
         }
     }
